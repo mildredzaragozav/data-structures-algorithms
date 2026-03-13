@@ -1,7 +1,6 @@
 package com.mildred.datastructures.exercises.HashTable;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 public class SubarraySum {
     /**
@@ -25,6 +24,11 @@ public class SubarraySum {
             map.put(currentSum, i);
         }
         return new int[]{};
+    }
+
+    public static List<Integer> removeDuplicates(List<Integer> myList) {
+        Set<Integer> uniqueSet = new HashSet<>(myList);
+        return new ArrayList<>(uniqueSet);
     }
 
     public static void main(String[] args) {
