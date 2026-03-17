@@ -2,6 +2,12 @@ package com.mildred.algorithms.sorting;
 
 import java.util.Arrays;
 
+/**
+ * QuickSort is a sorting algorithm based on the Divide and Conquer that picks an element as a pivot and partitions the given array around
+ * the picked pivot by placing the pivot in its correct position in the sorted array.
+ * Time complexity: O(n log n)
+ * Space complexity: O(log n)
+ */
 public class QuickSort {
 
     /**
@@ -13,7 +19,13 @@ public class QuickSort {
         quickSortHelper(array, 0, array.length);
     }
 
-    public static void quickSortHelper(int[] array, int left, int right) {
+    /**
+     * Helper method for quick sort using in-place sorting
+     * @param array the array to be sorted
+     * @param left starting index
+     * @param right ending index
+     */
+    private static void quickSortHelper(int[] array, int left, int right) {
         if (left < right) {
             int pivotIndex = pivot(array, left, right);
 
@@ -30,7 +42,7 @@ public class QuickSort {
      * @param endIndex
      * @return
      */
-    public static int pivot(int[] array, int pivotIndex, int endIndex) {
+    private static int pivot(int[] array, int pivotIndex, int endIndex) {
         int swapIndex = pivotIndex;
 
         for (int i = pivotIndex + 1; i < endIndex; i++) {
@@ -43,7 +55,13 @@ public class QuickSort {
         return swapIndex;
     }
 
-    public static void swap (int[] array, int firstIndex, int secondIndex) {
+    /**
+     * Utility method to swap two elements in an array.
+     * @param array
+     * @param firstIndex
+     * @param secondIndex
+     */
+    private static void swap (int[] array, int firstIndex, int secondIndex) {
         int temp = array[firstIndex];
         array[firstIndex] = array[secondIndex];
         array[secondIndex] = temp;
