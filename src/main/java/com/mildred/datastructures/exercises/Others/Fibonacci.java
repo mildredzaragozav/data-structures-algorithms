@@ -1,4 +1,4 @@
-package com.mildred.datastructures.exercises;
+package com.mildred.datastructures.exercises.Others;
 
 public class Fibonacci {
     private static int counter = 0;
