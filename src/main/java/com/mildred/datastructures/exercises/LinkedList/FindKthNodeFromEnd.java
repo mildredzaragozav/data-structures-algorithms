@@ -87,23 +87,18 @@ public class FindKthNodeFromEnd {
         if (k <= 0) return null;
 
         Node slow = myLinkedList.getHead();
-
-        if(k == 1 && slow != null && slow.getNext() == null) return slow;
-
         Node fast = myLinkedList.getHead();
-        int aux = 0;
-        while(aux <= k && fast != null && fast.getNext() != null) {
+
+        for (int i = 0; i < k; i++) {
+            if (fast == null) return null;
             fast = fast.getNext();
-            aux++;
         }
 
-        if (aux < k) return null;
-
-        while(fast != null && fast.getNext() != null) {
+        while (fast != null) {
             slow = slow.getNext();
             fast = fast.getNext();
         }
 
-        return slow.getNext().getNext();
+        return slow;
     }
 }
