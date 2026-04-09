@@ -10,15 +10,14 @@ public class FindMaxMin {
      * @return
      */
     public static int[] findMaxMin(int[] myList) {
-        int[] maxMin = new int[2];
-        maxMin[0] = myList[0]; //max
-        maxMin[1] = myList[0]; //min
+        int max = myList[0];
+        int min = myList[0];
 
-        for (int i = 1; i < myList.length; i++) {
-            if (myList[i] < maxMin[1]) maxMin[1] = myList[i];
-            else if (maxMin[0] < myList[i]) maxMin[0] = myList[i];
+        for (int num : myList) {
+            max = Math.max(max, num);
+            min = Math.min(min, num);
         }
-        return maxMin;
+        return new int[]{max, min};
     }
 
     public static void main(String[] args) {
