@@ -68,6 +68,13 @@ public class TwoSum {
         System.out.println("Actual: " + formatResult(twoSum(nums5, target5)));
         System.out.println();
 
+        System.out.println("Test 6: Unsorted array");
+        int[] nums6 = {1, 50, 10, 5, 33, 0, -5, 19, -1};
+        int target6 = 0;
+        System.out.println("Expected: [3, 6]");
+        System.out.println("Actual: " + formatResult(twoSum(nums6, target6)));
+        System.out.println();
+
         /*
             EXPECTED OUTPUT:
             ----------------
