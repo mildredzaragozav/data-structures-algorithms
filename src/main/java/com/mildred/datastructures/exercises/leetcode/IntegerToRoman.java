@@ -8,75 +8,39 @@ public class IntegerToRoman {
      * @return the roman numeral
      */
     public static String intToRoman(int num) {
-        if(num < 1 || num > 3999) return null;
+        if (num < 1 || num > 3999) return null;
 
-        StringBuilder romanianString = new StringBuilder();
-        int res = num / 1000;
-
-        if(res != 0) {
-            num = num % 1000;
-            append(romanianString, 'M', res);
-        }
-
-        res = num / 100;
-        if(res != 0) {
-            num = num % 100;
-            helper(romanianString, res, "CD", "CM");
-        }
-
-        res = num / 10;
-        if (res != 0) {
-            num = num % 10;
-            helper(romanianString, res,"XL", "XC");
-        }
-
-        if (num != 0) {
-            helper(romanianString, num, "IV", "IX");
-        }
-
-        return romanianString.toString();
-    }
-
-    private static void helper(StringBuilder sb, int num, String sFor4, String sFor9){
-        if(num == 4) {
-            sb.append(sFor4);
-        } else if(num == 9) {
-            sb.append(sFor9);
-        } else {
-            if(num >= 5) {
-                sb.append(sFor4.charAt(1));
-                num = num - 5;
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            while (num >= values[i]) {
+                result.append(symbols[i]);
+                num -= values[i];
             }
-            append(sb, sFor4.charAt(0), num);
         }
-    }
-
-    private static void append(StringBuilder sb, char toAppend, int times) {
-        while(times > 0) {
-            sb.append(toAppend);
-            times--;
-        }
+        return result.toString();
     }
 
     public static void main(String[] args) {
         int n = 3525;
         System.out.println("Input:    " + n );
         System.out.println("Output:   " + intToRoman(n));
-        System.out.println("Expected: MMMDXXV" );
+        System.out.println("Expected: MMMDXXV \n" );
 
         n = 3749;
         System.out.println("Input:    " + n );
         System.out.println("Output:   " + intToRoman(n));
-        System.out.println("Expected: MMMDCCXLIX" );
+        System.out.println("Expected: MMMDCCXLIX \n");
 
         n = 58;
         System.out.println("Input:    " + n );
         System.out.println("Output:   " + intToRoman(n));
-        System.out.println("Expected: LVIII" );
+        System.out.println("Expected: LVIII \n" );
 
-        n = 7;
+        n = 3;
         System.out.println("Input:    " + n );
         System.out.println("Output:   " + intToRoman(n));
-        System.out.println("Expected: VII" );
+        System.out.println("Expected: III \n" );
     }
 }
