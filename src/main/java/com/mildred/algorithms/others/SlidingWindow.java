@@ -29,7 +29,6 @@ public class SlidingWindow {
                 left = map.get(currentChar) + 1;
             }
             map.put(currentChar, right);
-            System.out.println(map);
             maxLen = Math.max(maxLen, right - left + 1);
         }
         return maxLen;
@@ -51,7 +50,6 @@ public class SlidingWindow {
                 mySet.remove(s.charAt(left));
                 left++;
             }
-            System.out.println(mySet);
             maxCounter = Math.max(maxCounter, right - left + 1);
         }
         return maxCounter;
