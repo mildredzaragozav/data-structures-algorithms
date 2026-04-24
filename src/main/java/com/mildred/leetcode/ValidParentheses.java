@@ -1,4 +1,4 @@
-package com.mildred.datastructures.exercises.leetcode;
+package com.mildred.leetcode;
 
 import java.util.Stack;
 

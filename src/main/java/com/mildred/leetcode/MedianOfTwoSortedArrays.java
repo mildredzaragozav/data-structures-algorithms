@@ -1,4 +1,4 @@
-package com.mildred.datastructures.exercises.leetcode;
+package com.mildred.leetcode;
 
 import java.util.Arrays;
 
@@ -10,6 +10,7 @@ public class MedianOfTwoSortedArrays {
      * @param nums1
      * @param nums2
      * @return
+     * Complexity: O(M+N)
      */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if (nums1.length == 1 && nums2.length == 1) return (double) (nums1[0] + nums2[0]) / 2;
