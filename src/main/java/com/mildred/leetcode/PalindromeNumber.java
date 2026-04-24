@@ -3,21 +3,21 @@ package com.mildred.leetcode;
 public class PalindromeNumber {
     /**
      * Given an integer x, return true if x is a palindrome, and false otherwise.
+     * This approach stores one half of the integer in a another variable in reversed order. Then compares it
+     * to the other unaltered half of the number and see if they are equal or not
      * @param x
      * @return
      */
     public static boolean isPalindrome(int x) {
-        String xNumber = String.valueOf(x);
-        int left = 0;
-        int right = xNumber.length() - 1;
+        if (x < 0 || (x != 0 && x % 10 == 0)) return false;
 
-        while(left < right) {
-            if (xNumber.charAt(left) != xNumber.charAt(right)) return false;
-            left++;
-            right--;
+        int reversed = 0;
+        while(x > reversed){
+            reversed = reversed * 10 + (x % 10); // Add last digit
+            x /= 10; // Delete last digit
         }
 
-        return true;
+        return x == reversed || x == reversed / 10;
     }
 
     public static void main(String[] args) {
