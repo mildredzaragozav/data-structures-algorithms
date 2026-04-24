@@ -47,31 +47,11 @@ public class MedianOfTwoSortedArrays {
             aux++;
         }
 
-        while (index1 < nums1.length) {
-            if (aux == medianIndex) {
-                if (totalSize % 2 != 0) {
-                    return nums1[index1];
-                } else {
-                    return (double) (nums1[index1] + nums1[index1 + 1]) / 2;
-                }
-            }
-            index1++;
-            aux++;
+        if (index1 < nums1.length) {
+            return traverseRemainingArray(aux, index1, nums1, medianIndex, totalSize);
+        } else {
+            return traverseRemainingArray(aux, index2, nums2, medianIndex, totalSize);
         }
-
-        while (index2 < nums2.length) {
-            if (aux == medianIndex) {
-                if (totalSize % 2 != 0) {
-                    return nums2[index2];
-                } else {
-                    return (double) (nums2[index2] + nums2[index2 + 1]) / 2;
-                }
-            }
-            index2++;
-            aux++;
-        }
-
-        return 0;
     }
 
     private static double getSecondValue (int[] numsA, int indexA, int[] numsB, int indexB) {
@@ -80,6 +60,20 @@ public class MedianOfTwoSortedArrays {
         } else {
             return Math.min(numsB[indexB], numsA[indexA]);
         }
+    }
+    private static double traverseRemainingArray(int aux, int index, int[] nums, int medianIndex, int totalSize) {
+        while (index < nums.length) {
+            if (aux == medianIndex) {
+                if (totalSize % 2 != 0) {
+                    return nums[index];
+                } else {
+                    return (double) (nums[index] + nums[index + 1]) / 2;
+                }
+            }
+            index++;
+            aux++;
+        }
+        return 0;
     }
 
     public static void main(String[] args) {
