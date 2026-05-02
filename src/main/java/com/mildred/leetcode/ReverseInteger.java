@@ -7,26 +7,17 @@ public class ReverseInteger {
      * NOTE: Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range
      * @param x
      * @return
-     * Complexity for this solution: O(n^2)
+     * Complexity for this solution
+     * Time complexity: O(log(x)) Space complexity: O(1)
      */
     public static int reverse(int x) {
-        if (x < 0) {
-            return -helper(String.valueOf(x).substring(1), true);
-        } else {
-            return helper(String.valueOf(x), false);
-        }
-    }
-
-    private static int helper (String s, boolean isNegative){
         int result = 0;
-        for (int i = s.length() - 1; 0 <= i; i--) {
-            result = (int) (Integer.parseInt(String.valueOf(s.charAt(i))) * (Math.pow(10, i)) + result);
-        }
-
-        if ( !isNegative && result == Integer.MAX_VALUE) {
-            return 0;
-        } else if (isNegative && -result == Integer.MIN_VALUE+1) {
-            return 0;
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            if (result > Integer.MAX_VALUE/10) return 0;
+            if (result < Integer.MIN_VALUE/10) return 0;
+            result = result * 10 + pop;
         }
 
         return result;
