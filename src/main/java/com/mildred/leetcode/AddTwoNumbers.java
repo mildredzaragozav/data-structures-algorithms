@@ -24,41 +24,22 @@ public class AddTwoNumbers {
      * @return
      */
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        if (l1 == null && l2 == null) return null;
-
         ListNode head = new ListNode();
         ListNode tail = head;
-        int previousValue = 0;
+        int carry = 0;
 
-        while (l1 != null && l2 != null) {
-            previousValue += l1.val + l2.val;
-            ListNode tempNode = new ListNode(previousValue % 10);
-            previousValue /= 10;
-            tail.next = tempNode;
-            tail = tempNode;
-            l1 = l1.next;
-            l2 = l2.next;
+        while (l1 != null || l2 != null || carry != 0) {
+            int value1 = (l1 != null) ? l1.val : 0;
+            int value2 = (l2 != null) ? l2.val : 0;
+            carry += value1 + value2;
+
+            tail.next = new ListNode(carry % 10);;
+            tail = tail.next;
+
+            carry /= 10;
+            if (l1 != null) l1 = l1.next;
+            if (l2 !=  null) l2 = l2.next;
         }
-
-        while (l1 != null) {
-            previousValue += l1.val;
-            ListNode tempNode = new ListNode(previousValue % 10);
-            previousValue /= 10;
-            tail.next = tempNode;
-            tail = tempNode;
-            l1 = l1.next;
-        }
-
-        while (l2 != null) {
-            previousValue += l2.val;
-            ListNode tempNode = new ListNode(previousValue % 10);
-            previousValue /= 10;
-            tail.next = tempNode;
-            tail = tempNode;
-            l2 = l2.next;
-        }
-
-        if (previousValue != 0) tail.next = new ListNode(previousValue);
 
         return head.next;
     }
