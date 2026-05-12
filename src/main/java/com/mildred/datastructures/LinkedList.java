@@ -8,6 +8,15 @@ public class LinkedList {
     private Node tail;
     private int length = 0;
 
+    class Node {
+        int value;
+        Node next;
+
+        Node(int value) {
+            this.value = value;
+        }
+    }
+
     public LinkedList(int value) {
         Node newNode = new Node(value);
         head = newNode;
@@ -26,8 +35,8 @@ public class LinkedList {
     public void printList() {
         Node temp = head;
         while(temp != null) {
-            System.out.println(temp.getValue());
-            temp = temp.getNext();
+            System.out.println(temp.value);
+            temp = temp.next;
         }
     }
 
@@ -37,7 +46,7 @@ public class LinkedList {
             head = newNode;
             tail = newNode;
         } else {
-            tail.setNext(newNode);
+            tail.next = newNode;
             tail = newNode;
         }
         length++;
@@ -47,13 +56,13 @@ public class LinkedList {
         if (length != 0) {
             Node temp = head;
             Node pre = head;
-            while(temp.getNext() != null) {
+            while(temp.next != null) {
                 pre = temp;
-                temp = temp.getNext();
+                temp = temp.next;
             }
 
             tail = pre;
-            tail.setNext(null);
+            tail.next = null;
             length--;
 
             if(length == 0) {
@@ -69,13 +78,13 @@ public class LinkedList {
         if (length != 0) {
             Node temp = head;
             Node pre = head;
-            while(temp.getNext() != null) {
+            while(temp.next != null) {
                 pre = temp;
-                temp = temp.getNext();
+                temp = temp.next;
             }
 
             tail = pre;
-            tail.setNext(null);
+            tail.next = null;
             length--;
 
             if(length == 0) {
@@ -93,7 +102,7 @@ public class LinkedList {
             tail = newNode;
             head = newNode;
         } else {
-            newNode.setNext(head);
+            newNode.next = head;
             head = newNode;
         }
         length++;
@@ -105,7 +114,7 @@ public class LinkedList {
             tail = null;
             length = 0;
         } else if(length > 1) {
-            head = head.getNext();
+            head = head.next;
             length--;
         }
     }
@@ -113,8 +122,8 @@ public class LinkedList {
     public Node removeFirstNode(){
         if(length == 0) return null;
         Node temp = head;
-        head = head.getNext();
-        temp.setNext(null);
+        head = head.next;
+        temp.next = null;
         length--;
         if (length == 0) {
             tail = null;
@@ -124,10 +133,9 @@ public class LinkedList {
 
     public Node getNode(int index){
         if (length == 0 || index < 0 || index >= length) return null;
-        int aux = 0;
         Node temp = head;
         for(int i = 0; i < index; i++) {
-            temp = temp.getNext();
+            temp = temp.next;
         }
         return temp;
     }
@@ -136,15 +144,15 @@ public class LinkedList {
         if (length == 0 || index < 0 || index >= length) return -999999;
         Node temp = head;
         for(int i = 0; i < index; i++) {
-            temp = temp.getNext();
+            temp = temp.next;
         }
-        return temp.getValue();
+        return temp.value;
     }
 
     public boolean set(int index, int value) {
         Node temp = getNode(index);
         if(temp != null) {
-            temp.setValue(value);
+            temp.value = value;
             return true;
         }
         return false;
@@ -164,8 +172,8 @@ public class LinkedList {
         }
         Node newNode = new Node(value);
         Node temp = getNode(index - 1);
-        newNode.setNext(temp.getNext());
-        temp.setNext(newNode);
+        newNode.next = temp.next;
+        temp.next = newNode;
         length++;
         return true;
     }
@@ -177,9 +185,9 @@ public class LinkedList {
         if (index == length -1) return removeLastNode();
 
         Node prev = getNode(index - 1);
-        Node temp = prev.getNext();
-        prev.setNext(temp.getNext());
-        temp.setNext(null);
+        Node temp = prev.next;
+        prev.next = temp.next;
+        temp.next = null;
         length--;
         return temp;
     }
@@ -188,40 +196,62 @@ public class LinkedList {
         Node temp = head;
         head = tail;
         tail = temp;
-        Node after = temp.getNext();
+        Node after = temp.next;
         Node before = null;
 
         for(int i = 0; i < length; i++){
-            after = temp.getNext();
-            temp.setNext(before);
+            after = temp.next;
+            temp.next = before;
             before = temp;
             temp = after;
         }
     }
 
+    /**
+     * This method uses returns the middle node of the linked list. If the list has an even number of nodes,
+     * the method returns the second middle node. It uses the slow and fast pointer technique (aka Floyd's Tortoise and
+     * Hare algorithm). The key idea is to have two pointers, one that moves twice as fast as the other. By the time the fast pointer
+     * reaches the end of the linked list, the slow pointer will be at the middle.
+     * @param
+     * @return
+     */
     public Node findMiddleNode() {
         Node slow = head;
         Node fast = head;
 
-        while (fast != null && fast.getNext() != null) {
-            slow = slow.getNext();
-            fast = fast.getNext().getNext();
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
         return slow;
     }
 
+    /**
+     * This method detects if there is a cycle or loop present in the linked list using the Floyd's cycle-finding algorithm (also known as the
+     * "tortoise and the hare" algorithm) to detect the loop.
+     * @return
+     */
     public boolean hasLoop() {
         Node slow = head;
         Node fast = head;
 
-        while (fast != null && fast.getNext() != null) {
-            slow = slow.getNext();
-            fast = fast.getNext().getNext();
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
             if (slow == fast) return true;
         }
         return false;
     }
 
+    /**
+     * This method returns the k-th node from the end of a singly linked list. This implementation does not use the
+     * size property and uses the two-pointer technique.
+     * Current complexity:
+     * Space: O(1)
+     * Time: O(n)
+     * @param k
+     * @return
+     */
     public Node findKthFromEnd(int k) {
         if (k <= 0) return null;
 
@@ -230,12 +260,12 @@ public class LinkedList {
 
         for (int i = 0; i < k; i++) {
             if (fast == null) return null;
-            fast = fast.getNext();
+            fast = fast.next;
         }
 
         while (fast != null) {
-            slow = slow.getNext();
-            fast = fast.getNext();
+            slow = slow.next;
+            fast = fast.next;
         }
 
         return slow;
@@ -247,14 +277,14 @@ public class LinkedList {
         Node current = head;
 
         while(current != null) {
-            if (values.contains(current.getNext())) {
-                previous.setNext(current.getNext());
+            if (values.contains(current.next)) {
+                previous.next = current.next;
                 length--;
             } else {
-                values.add(current.getValue());
+                values.add(current.value);
                 previous = current;
             }
-            current = current.getNext();
+            current = current.next;
         }
     }
 
@@ -269,8 +299,8 @@ public class LinkedList {
         Node current = head;
 
         while(current != null) {
-            sum = sum*2 + current.getValue();
-            current = current.getNext();
+            sum = sum*2 + current.value;
+            current = current.next;
         }
         return sum;
     }
@@ -292,21 +322,21 @@ public class LinkedList {
 
 
             while (current != null) {
-                if (current.getValue() < x) {
-                    //if(dummy1.getNext() == null) dummy1.setNext(current);
-                    prev1.setNext(current);
+                if (current.value < x) {
+                    //if(dummy1.next == null) dummy1.next = current);
+                    prev1.next = current;
                     prev1 = current;
                 } else {
-                    //if(dummy2.getNext() == null) dummy2.setNext(current);
-                    prev2.setNext(current);
+                    //if(dummy2.next == null) dummy2.next = current);
+                    prev2.next = current;
                     prev2 = current;
                 }
-                current = current.getNext();
+                current = current.next;
             }
 
-            prev2.setNext(null);
-            prev1.setNext(dummy2.getNext());
-            head = dummy1.getNext();
+            prev2.next = null;
+            prev1.next = dummy2.next;
+            head = dummy1.next;
         }
     }
 
@@ -322,7 +352,7 @@ public class LinkedList {
 
         Node prev;
         Node dummy = new Node(0);
-        dummy.setNext(head);
+        dummy.next = head;
 
         if(startIndex == 0) {
             prev = dummy;
@@ -332,45 +362,45 @@ public class LinkedList {
 
         Node current = getNode(startIndex);
         Node stop = getNode(endIndex);
-        Node toMove = current.getNext();
+        Node toMove = current.next;
 
         while(toMove != stop) {
-            current.setNext(toMove.getNext());
-            toMove.setNext(prev.getNext());
-            prev.setNext(toMove);
-            toMove = current.getNext();
+            current.next = toMove.next;
+            toMove.next = prev.next;
+            prev.next = toMove;
+            toMove = current.next;
         }
 
-        current.setNext(toMove.getNext());
-        toMove.setNext(prev.getNext());
-        prev.setNext(toMove);
+        current.next = toMove.next;
+        toMove.next = prev.next;
+        prev.next = toMove;
 
         if(startIndex == 1) {
             head = prev;
         } else if (startIndex == 0) {
-            head = prev.getNext();
+            head = prev.next;
         }
     }
 
     public void reverseBetween(int startIndex, int endIndex) {
         if (head == null || startIndex == endIndex) return;
         Node dummyNode = new Node(0);
-        dummyNode.setNext(head);
+        dummyNode.next = head;
         Node previousNode = dummyNode;
 
         for(int i=0; i<startIndex; i++){
-            previousNode = previousNode.getNext();
+            previousNode = previousNode.next;
         }
 
-        Node currentNode = previousNode.getNext();
+        Node currentNode = previousNode.next;
 
         for(int i = startIndex; 0 < endIndex-i; i++) {
-            Node nodeToMove = currentNode.getNext();
-            currentNode.setNext(nodeToMove.getNext());
-            nodeToMove.setNext(previousNode.getNext());
-            previousNode.setNext(nodeToMove);
+            Node nodeToMove = currentNode.next;
+            currentNode.next = nodeToMove.next;
+            nodeToMove.next = previousNode.next;
+            previousNode.next = nodeToMove;
         }
-        head = dummyNode.getNext();
+        head = dummyNode.next;
     }
 
     /**
@@ -378,20 +408,20 @@ public class LinkedList {
      * This method modifies the list in place.
      */
     public void swapPairs() {
-        if(head == null || head.getNext() == null) return;
+        if(head == null || head.next == null) return;
 
         Node dummy = new Node(0);
         Node current = head;
-        head = head.getNext();
+        head = head.next;
 
         while(current != null) {
-            Node aux = current.getNext();
+            Node aux = current.next;
             if(aux != null){
-                current.setNext(aux.getNext());
-                aux.setNext(current);
-                dummy.setNext(aux);
-                dummy = current; //dummy= aux.getNext();
-                current = current.getNext();
+                current.next = aux.next;
+                aux.next = current;
+                dummy.next = aux;
+                dummy = current; //dummy= aux.next;
+                current = current.next;
             } else {
                 break;
             }
@@ -409,13 +439,13 @@ public class LinkedList {
         for(int i=0; i<length-1; i++) {
             Node current = head;
             for(int j=1; j<length-i; j++) {
-                Node nextNode = current.getNext();
-                if(nextNode.getValue() < current.getValue()) {
-                    int nextValue = nextNode.getValue();
-                    nextNode.setValue(current.getValue());
-                    current.setValue(nextValue);
+                Node nextNode = current.next;
+                if(nextNode.value < current.value) {
+                    int nextValue = nextNode.value;
+                    nextNode.value = current.value;
+                    current.value = nextValue;
                 }
-                current = current.getNext();
+                current = current.next;
             }
         }
     }
@@ -424,16 +454,16 @@ public class LinkedList {
         if(length < 2) return;
         Node sortedUntil = null;
 
-        while(sortedUntil != this.head.getNext()) {
+        while(sortedUntil != this.head.next) {
             Node current = this.head;
-            while(current.getNext() != sortedUntil) {
-                Node nextNode = current.getNext();
-                if(current.getValue() > nextNode.getValue()) {
-                    int nextValue = nextNode.getValue();
-                    nextNode.setValue(current.getValue());
-                    current.setValue(nextValue);
+            while(current.next != sortedUntil) {
+                Node nextNode = current.next;
+                if(current.value > nextNode.value) {
+                    int nextValue = nextNode.value;
+                    nextNode.value = current.value;
+                    current.value = nextValue;
                 }
-                current = current.getNext();
+                current = current.next;
             }
             sortedUntil = current;
         }
@@ -447,24 +477,24 @@ public class LinkedList {
         if(length < 2) return;
 
         Node current = this.head;
-        while(current.getNext() != null) {
+        while(current.next != null) {
             // Assume current node is the smallest
             Node smallest = current;
-            Node innerCurrent = current.getNext();
+            Node innerCurrent = current.next;
 
             // Inner loop to find smallest node in unsorted part
             while(innerCurrent != null) {
-                if(smallest.getValue() > innerCurrent.getValue()) {
+                if(smallest.value > innerCurrent.value) {
                     smallest = innerCurrent;
                 }
-                innerCurrent = innerCurrent.getNext();
+                innerCurrent = innerCurrent.next;
             }
             if(smallest != current) {
-                int temp = smallest.getValue();
-                smallest.setValue(current.getValue());
-                current.setValue(temp);
+                int temp = smallest.value;
+                smallest.value = current.value;
+                current.value = temp;
             }
-            current = current.getNext();
+            current = current.next;
         }
     }
 
@@ -477,31 +507,31 @@ public class LinkedList {
         if(length < 2) return;
 
         Node sortedListHead = head;
-        Node unsortedListHead = head.getNext();
-        sortedListHead.setNext(null);
+        Node unsortedListHead = head.next;
+        sortedListHead.next = null;
         Node next;
 
         while(unsortedListHead != null) {
-            next = unsortedListHead.getNext();
+            next = unsortedListHead.next;
 
-            if(unsortedListHead.getValue() < sortedListHead.getValue()) {
-                unsortedListHead.setNext(sortedListHead);
+            if(unsortedListHead.value < sortedListHead.value) {
+                unsortedListHead.next = sortedListHead;
                 sortedListHead = unsortedListHead;
             } else {
                 Node searchPointer = sortedListHead;
-                while(searchPointer.getNext() != null && searchPointer.getNext().getValue() < unsortedListHead.getValue()) {
-                    searchPointer = searchPointer.getNext();
+                while(searchPointer.next != null && searchPointer.next.value < unsortedListHead.value) {
+                    searchPointer = searchPointer.next;
                 }
-                unsortedListHead.setNext(searchPointer.getNext());
-                searchPointer.setNext(unsortedListHead);
+                unsortedListHead.next = searchPointer.next;
+                searchPointer.next = unsortedListHead;
             }
             unsortedListHead = next;
         }
 
         head = sortedListHead;
 
-        while(sortedListHead.getNext() != null) {
-            sortedListHead = sortedListHead.getNext();
+        while(sortedListHead.next != null) {
+            sortedListHead = sortedListHead.next;
         }
         tail = sortedListHead;
     }
@@ -519,31 +549,31 @@ public class LinkedList {
         Node current = dummy;
 
         while(head != null && otherHead != null) {
-            if(otherHead.getValue() < head.getValue()) {
-                current.setNext(otherHead);
-                otherHead = otherHead.getNext();
+            if(otherHead.value < head.value) {
+                current.next = otherHead;
+                otherHead = otherHead.next;
                 length++;
             } else {
-                current.setNext(head);
-                head = head.getNext();
+                current.next = head;
+                head = head.next;
             }
-            current = current.getNext();
+            current = current.next;
         }
 
         while(head != null){
-            current.setNext(head);
-            current = current.getNext();
-            head = head.getNext();
+            current.next = head;
+            current = current.next;
+            head = head.next;
         }
 
         while(otherHead != null) {
-            current.setNext(otherHead);
-            current = current.getNext();
-            otherHead = otherHead.getNext();
+            current.next = otherHead;
+            current = current.next;
+            otherHead = otherHead.next;
             length++;
         }
 
-        head = dummy.getNext();
+        head = dummy.next;
         tail = current;
     }
 }
