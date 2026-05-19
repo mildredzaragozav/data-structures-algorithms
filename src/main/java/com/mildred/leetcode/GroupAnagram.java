@@ -7,8 +7,8 @@ public class GroupAnagram {
      * Given an array of strings strs, group the anagrams together. You can return the answer in any order.
      * Note: strs[i] consists of lowercase English letters.
      * Complexity for current solution:
-     * Time: O(n x mlog(m))
-     * Space: O(1)
+     * Time: O(n*mlog(m))
+     * Space: O(n*m)
      * @param strs
      * @return
      */
