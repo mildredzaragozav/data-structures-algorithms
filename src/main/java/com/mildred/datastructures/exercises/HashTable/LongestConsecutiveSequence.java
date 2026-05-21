@@ -8,6 +8,9 @@ public class LongestConsecutiveSequence {
     /**
      * Given an unsorted array of integers, write a function that finds the length of the  longestConsecutiveSequence
      * (i.e., a sequence of integers in which each element is one greater than the previous element).
+     * Current complexity:
+     * Time O(n)
+     * Space O(n)
      * @param nums
      * @return
      */
