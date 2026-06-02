@@ -11,25 +11,22 @@ public class IsSubsequence {
      * @return
      */
     public static boolean isSubsequence(String s, String t) {
-        if (s.equals(t) || s.isEmpty()) return true;
+        if (s.isEmpty()) return true;
 
-        int left = 0;
-        boolean isCharPresent = false;
-        for (char c : s.toCharArray()) {
-            isCharPresent = false;
-            for (int right = left; right < t.length(); right++) {
-                char ct = t.charAt(right);
-                if (c == ct) {
-                    left = right+1;
-                    isCharPresent = true;
-                    break;
-                } else if (right == t.length() -1) {
-                    return false;
-                }
+        int sPointer = 0;
+        int tPointer = 0;
+        char[] sArray = s.toCharArray();
+        char[] tArray = t.toCharArray();
+
+        while (tPointer < t.length()) {
+            if (tArray[tPointer] == sArray[sPointer]) {
+                sPointer++;
             }
+            tPointer++;
+            if (sPointer == s.length()) return true;
         }
 
-        return isCharPresent;
+        return false;
     }
 
     public static void main(String[] args) {
