@@ -1,4 +1,4 @@
-package com.mildred.leetcode;
+package com.mildred.leetcode.twopointers;
 
 import java.util.Arrays;
 
