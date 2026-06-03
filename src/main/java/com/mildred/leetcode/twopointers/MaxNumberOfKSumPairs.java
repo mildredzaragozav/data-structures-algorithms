@@ -1,7 +1,6 @@
 package com.mildred.leetcode.twopointers;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class MaxNumberOfKSumPairs {
     /**
@@ -9,27 +8,30 @@ public class MaxNumberOfKSumPairs {
      * In one operation, you can pick two numbers from the array whose sum equals k and remove them from the array.
      * Return the maximum number of operations you can perform on the array.
      * Complexity for below solution:
-     * Time: O(n)
-     * Space: O(n)
+     * Time: O(nlogn)
+     * Space: O(1)
      * @param nums
      * @param k
      * @return
      */
     public static int maxOperations(int[] nums, int k) {
         int operations = 0;
-        HashMap<Integer, Integer> pairs = new HashMap<>();
+        int left = 0;
+        int right = nums.length-1;
 
-        for (int num : nums) {
-            int toTarget = k - num;
-            if (pairs.containsKey(toTarget)) {
+        Arrays.sort(nums);
+
+        while (left < right){
+            if ((nums[left] + nums[right]) == k) {
                 operations++;
-                pairs.put(toTarget, pairs.get(toTarget)-1);
-                if (pairs.get(toTarget) == 0) pairs.remove(toTarget);
-                continue;
+                left++;
+                right--;
+            } else if ((nums[left] + nums[right]) < k) {
+                left++;
+            } else {
+                right--;
             }
-            pairs.put(num, pairs.getOrDefault(num, 0) + 1);
         }
-
         return operations;
     }
 
