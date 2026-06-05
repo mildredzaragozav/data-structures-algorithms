@@ -3,36 +3,27 @@ package com.mildred;
 public class GreatestCommonDivisorOfStrings {
     /**
      * Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
+     * Complexity for below solution:
+     * Time: O(n + m)
+     * Space: O(1)
      * @param str1
      * @param str2
      * @return
      */
     public static String gcdOfStrings(String str1, String str2) {
-        if (str1.equals(str2)) return str1;
+        if(!(str1+str2).equals(str2+str1)) return "";
 
-        String t = str1.length() < str2.length() ? str1 : str2;
+        int length1 = str1.length();
+        int length2 = str2.length();
+        int temp;
 
-        while (str1.length() % t.length() != 0 || str2.length() % t.length() != 0) {
-            t = t.substring(0, t.length() -1);
+        while (length1 != 0) {
+            temp = length1;
+            length1 = length2 % length1;
+            length2 = temp;
         }
 
-        int index = 0;
-
-        while (index < str1.length()) {
-            String s1 = str1.substring(index, index + t.length());
-            if (!s1.equals(t)) return "";
-            index += t.length();
-        }
-
-        index = 0;
-
-        while (index < str2.length()) {
-            String s2 = str2.substring(index, index + t.length());
-            if (!s2.equals(t)) return "";
-            index += t.length();
-        }
-
-        return t;
+        return str2.substring(0, length2);
     }
 
     public static void main(String[] args) {
