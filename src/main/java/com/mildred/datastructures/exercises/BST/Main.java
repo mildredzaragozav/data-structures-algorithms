@@ -5,10 +5,45 @@ import com.mildred.datastructures.BinarySearchTree;
 public class Main {
     public static void main(String[] args) {
 
-            BinarySearchTree myBST = new BinarySearchTree();
+        BinarySearchTree myBST = new BinarySearchTree();
+        //4, 2, 6, 1, 3, 5, 7
+        myBST.insert(4);
+        myBST.insert(2);
+        myBST.insert(6);
+        myBST.insert(1);
+        myBST.insert(3);
+        myBST.insert(5);
+        myBST.insert(7);
 
-            myBST.insert(2);
-            myBST.insert(1);
+        System.out.println("Root: " + myBST.root.value);
+        System.out.println("Root->Left: " + myBST.root.left.value);
+        System.out.println("Root->Right: " + myBST.root.right.value);
+
+        System.out.println("\nRoot: " + myBST.root.left.value);
+        System.out.println("Root->Left: " + myBST.root.left.left.value);
+        System.out.println("Root->Right: " + myBST.root.left.right.value);
+
+        System.out.println("\nRoot: " + myBST.root.right.value);
+        System.out.println("Root->Left: " + myBST.root.right.left.value);
+        System.out.println("Root->Right: " + myBST.root.right.right.value);
+
+        myBST.invert();
+
+        System.out.println("\nRoot: " + myBST.root.value);
+        System.out.println("Root->Left: " + myBST.root.left.value);
+        System.out.println("Root->Right: " + myBST.root.right.value);
+
+        System.out.println("\nRoot: " + myBST.root.left.value);
+        System.out.println("Root->Left: " + myBST.root.left.left.value);
+        System.out.println("Root->Right: " + myBST.root.left.right.value);
+
+        System.out.println("\nRoot: " + myBST.root.right.value);
+        System.out.println("Root->Left: " + myBST.root.right.left.value);
+        System.out.println("Root->Right: " + myBST.root.right.right.value);
+
+        myBST = new BinarySearchTree();
+        myBST.insert(2);
+        myBST.insert(1);
         myBST.insert(3);
 
         /*

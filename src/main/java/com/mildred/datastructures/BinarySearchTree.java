@@ -1,5 +1,9 @@
 package com.mildred.datastructures;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinarySearchTree {
     public Node root;
 
@@ -40,6 +44,25 @@ public class BinarySearchTree {
                 temp = temp.right;
             }
         }
+    }
+
+    public ArrayList<Integer> BFS() {
+        Node currentNode = root;
+        Queue<Node> queue = new LinkedList<>();
+        ArrayList<Integer> results = new ArrayList<>();
+        if (currentNode != null) {
+            queue.add(currentNode);
+        }
+
+        while (queue.size() > 0) {
+            currentNode = queue.remove();
+            if (currentNode != null) {
+                results.add(currentNode.value);
+                queue.add(currentNode.left);
+                queue.add(currentNode.right);
+            }
+        }
+        return results;
     }
 
     public boolean contains(int value) {
@@ -137,6 +160,29 @@ public class BinarySearchTree {
             currentNode = currentNode.left;
         }
         return currentNode.value;
+    }
+
+    /**
+     * This method  inverts (or mirrors) a binary tree. This means that for every node in the binary tree,
+     * the method swaps its left and right children.
+     */
+    public void invert() {
+        root = invertTree(root);
+    }
+
+    /**
+     * Helper method to invert().
+     * @param node
+     * @return
+     */
+    private Node invertTree(Node node) {
+        if (node == null) return null;
+
+        Node tempLeft = node.left;
+        node.left = invertTree(node.right);
+        node.right = invertTree(tempLeft);
+
+        return node;
     }
 
 }
