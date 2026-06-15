@@ -46,6 +46,11 @@ public class BinarySearchTree {
         }
     }
 
+    /**
+     * This method  performs a breadth-first search traversal (tree traversal) of the tree and returns an ArrayList
+     * of the visited nodes' values in the order they were visited.
+     * @return ArrayList<Integer>
+     */
     public ArrayList<Integer> BFS() {
         Node currentNode = root;
         Queue<Node> queue = new LinkedList<>();
