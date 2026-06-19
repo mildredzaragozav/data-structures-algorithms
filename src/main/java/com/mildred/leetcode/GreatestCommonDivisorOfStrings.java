@@ -1,4 +1,4 @@
-package com.mildred;
+package com.mildred.leetcode;
 
 public class GreatestCommonDivisorOfStrings {
     /**
